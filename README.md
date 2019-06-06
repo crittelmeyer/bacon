@@ -32,7 +32,7 @@ file.
 #### 3. Run `npm start`
 
 Will start `webpack-dev-server` with hot-reloading on
-[localhost:300](http://localhost:3000).
+[localhost:3000](http://localhost:3000).
 
 #### 4. Run `npm run build`
 
