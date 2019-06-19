@@ -1,7 +1,7 @@
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CircularDependencyPlugin from 'circular-dependency-plugin';
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 const plugins = [
   new webpack.HotModuleReplacementPlugin(),
@@ -27,10 +27,7 @@ module.exports = require('./webpack.base.babel')({
     chunkFilename: '[name].chunk.js',
   },
   optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-    // minimize: false,
+    minimize: false,
   },
   plugins,
   // faster for debugging
@@ -39,6 +36,7 @@ module.exports = require('./webpack.base.babel')({
     hot: true,
     historyApiFallback: true,
     port: 3000,
+    disableHostCheck: false,
   },
   performance: {
     hints: false,

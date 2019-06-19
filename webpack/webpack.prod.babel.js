@@ -1,15 +1,13 @@
-import path from 'path';
-import { HashedModuleIdsPlugin } from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import TerserPlugin from 'terser-webpack-plugin';
-import CompressionPlugin from 'compression-webpack-plugin';
+const path = require('path');
+const { HashedModuleIdsPlugin } = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
-  entry: [
-    require.resolve('react-app-polyfill/ie11'),
-    path.join(process.cwd(), 'src/index.jsx'),
-  ],
+  entry: [path.join(process.cwd(), 'src/index.jsx')],
   output: {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].chunk.js',
@@ -40,18 +38,20 @@ module.exports = require('./webpack.base.babel')({
     concatenateModules: true,
     runtimeChunk: 'single',
     splitChunks: {
-      chunks: 'all',
+      chunks: 'initial',
       maxInitialRequests: 10,
       minSize: 0,
       cacheGroups: {
+        react: {
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          name: 'react',
+          chunks: 'all',
+          enforce: true,
+        },
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name(module) {
-            const packageName = module.context.match(
-              /[\\/]node_modules[\\/](.*?)([\\/]|$)/,
-            )[1];
-            return `npm.${packageName.replace('@', '')}`;
-          },
+          name: 'vendor',
+          priority: -10,
         },
       },
     },
@@ -84,6 +84,7 @@ module.exports = require('./webpack.base.babel')({
       hashDigest: 'hex',
       hashDigestLength: 20,
     }),
+    new BundleAnalyzerPlugin(),
   ],
   performance: {
     assetFilter: assetFilename =>

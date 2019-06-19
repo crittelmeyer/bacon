@@ -13,12 +13,11 @@
 - webpack 4.3.0
 - styled-components 4.1.3
 - material-ui 4.0.2
+- core-js, regenerator-runtime, whatwg-fetch
 
 ### Quick Start
 
 #### 1. Installation
-
-Not published on npm yet, so you can just clone repo with `git clone`.
 
 ```
 git clone https://github.com/Nickew/react-starter-kit.git
