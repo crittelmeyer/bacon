@@ -4,6 +4,9 @@
 *.iml
 *.ipr
 
+### VSCode ###
+.history
+
 ### NetBeans ###
 /nbproject/private/
 /build/

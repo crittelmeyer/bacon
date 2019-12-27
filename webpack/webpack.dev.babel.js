@@ -35,7 +35,7 @@ module.exports = require('./webpack.base.babel')({
   devServer: {
     hot: true,
     historyApiFallback: true,
-    port: 3000,
+    port: 3001,
     disableHostCheck: false,
   },
   performance: {
